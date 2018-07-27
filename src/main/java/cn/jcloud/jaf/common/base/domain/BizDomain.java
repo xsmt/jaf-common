@@ -24,6 +24,10 @@ public abstract class BizDomain<I extends Serializable> extends BaseDomain<I> {
     @Column(updatable = false)
     private Date createTime;
 
+    private long createBy;
+
+    private long updateBy;
+
     private boolean deleted;
 
     public Date getUpdateTime() {
@@ -48,5 +52,21 @@ public abstract class BizDomain<I extends Serializable> extends BaseDomain<I> {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public long getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(long createBy) {
+        this.createBy = createBy;
+    }
+
+    public long getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(long updateBy) {
+        this.updateBy = updateBy;
     }
 }
