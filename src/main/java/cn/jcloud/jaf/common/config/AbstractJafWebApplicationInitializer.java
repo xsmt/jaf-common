@@ -14,7 +14,7 @@ import java.util.EnumSet;
 
 /**
  * web项目的启动配置
- * Created by Zhang Jinlong(150429) on 2016/4/20.
+ * Created by Wei Han on 2016/4/20.
  */
 @Order(1)
 public abstract class AbstractJafWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {

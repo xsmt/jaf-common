@@ -8,7 +8,7 @@ import java.lang.reflect.Type;
 
 /**
  * 反射相关帮助类
- * Created by Zhang JinLong on 2016/2/18.
+ * Created by Wei Han on 2016/2/18.
  */
 public class ReflectUtil {
 
