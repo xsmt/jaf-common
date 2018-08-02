@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author hasayaki
+ * @author Wei Han
  */
 public enum Operator {
     EQ("="),

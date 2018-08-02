@@ -2,10 +2,9 @@ package cn.jcloud.jaf.common.base.service;
 
 import cn.jcloud.jaf.common.base.domain.BizDomain;
 import cn.jcloud.jaf.common.base.repository.BizRepository;
-import cn.jcloud.jaf.common.query.Condition;
 import cn.jcloud.jaf.common.query.Items;
 import cn.jcloud.jaf.common.query.ListParam;
-import cn.jcloud.jaf.common.query.Operator;
+import cn.jcloud.jaf.common.util.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
@@ -42,7 +41,7 @@ public abstract class BizService<T extends BizDomain<I>, I extends Serializable>
 
     @Override
     public Items<T> list(ListParam<T> listParam) {
-        listParam.addCondition(Condition.of("deleted", Operator.NE, true, Boolean.class));
+        listParam.addCondition(ObjectFactory.deletedCondition());
         return super.list(listParam);
     }
 

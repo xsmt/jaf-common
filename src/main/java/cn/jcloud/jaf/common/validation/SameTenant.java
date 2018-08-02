@@ -1,8 +1,8 @@
 package cn.jcloud.jaf.common.validation;
 
-import com.nd.gaea.WafException;
-import com.nd.gaea.client.WafResourceAccessException;
-import com.nd.social.common.util.UCHelper;
+import cn.jcloud.gaea.WafException;
+import cn.jcloud.gaea.client.WafResourceAccessException;
+import cn.jcloud.jaf.common.util.UCHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.client.ResourceAccessException;
 

@@ -1,9 +1,9 @@
 package cn.jcloud.jaf.common.util;
 
-import com.google.common.annotations.VisibleForTesting;
 import cn.jcloud.jaf.common.constant.ErrorCode;
 import cn.jcloud.jaf.common.exception.JafI18NException;
 import cn.jcloud.jaf.common.handler.SpringContextHolder;
+import com.google.common.annotations.VisibleForTesting;
 import org.apache.commons.lang3.StringUtils;
 import org.mockito.Mockito;
 import org.springframework.validation.BindingResult;
@@ -16,7 +16,7 @@ import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 /**
- * @author wuzj(971643)
+ * @author Wei Han
  */
 public class ValidatorUtil {
 

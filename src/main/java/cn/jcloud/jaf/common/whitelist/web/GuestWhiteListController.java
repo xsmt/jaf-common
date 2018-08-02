@@ -1,16 +1,14 @@
 package cn.jcloud.jaf.common.whitelist.web;
 
+import cn.jcloud.jaf.common.handler.TenantHandler;
+import cn.jcloud.jaf.common.query.Items;
+import cn.jcloud.jaf.common.query.ListParam;
+import cn.jcloud.jaf.common.whitelist.domain.GuestWhiteList;
+import cn.jcloud.jaf.common.whitelist.service.GuestWhiteListService;
+import cn.jcloud.jaf.common.whitelist.vo.BatchAddVo;
+import cn.jcloud.jaf.common.whitelist.vo.BatchDeleteVo;
+import cn.jcloud.jaf.common.whitelist.vo.GuestMode;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.nd.social.common.handler.TenantHandler;
-import com.nd.social.common.query.Items;
-import com.nd.social.common.query.ListParam;
-import com.nd.social.common.security.BearerApi;
-import com.nd.social.common.security.SuidRequired;
-import com.nd.social.common.whitelist.domain.GuestWhiteList;
-import com.nd.social.common.whitelist.service.GuestWhiteListService;
-import com.nd.social.common.whitelist.vo.BatchAddVo;
-import com.nd.social.common.whitelist.vo.BatchDeleteVo;
-import com.nd.social.common.whitelist.vo.GuestMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +21,7 @@ import java.util.List;
  * Created by Wei Han on 2016/3/4.
  */
 @RestController
-@BearerApi(suidRequired = SuidRequired.REQUIRED)
-@RequestMapping({"/${version}/guests", "/${version}/{bizType}/guests"})
+@RequestMapping("/${version}/guests")
 public class GuestWhiteListController {
 
     @Autowired

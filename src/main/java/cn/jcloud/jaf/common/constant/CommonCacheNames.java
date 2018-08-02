@@ -6,10 +6,7 @@ package cn.jcloud.jaf.common.constant;
  * Created by Wei Han on 2016/4/7.
  */
 public class CommonCacheNames {
-	
-	public static final String APP_ROUTER = "approuter";
     public static final String TENANT = "tenant";
-    public static final String PBL_BINDS = "pbs";
 
     private CommonCacheNames() {
     }

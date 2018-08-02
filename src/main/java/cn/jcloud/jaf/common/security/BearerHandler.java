@@ -1,6 +1,6 @@
 package cn.jcloud.jaf.common.security;
 
-import com.nd.social.common.config.SafContext;
+import cn.jcloud.jaf.common.config.JafContext;
 
 import java.util.*;
 
@@ -43,7 +43,7 @@ public class BearerHandler implements IWebAnnotationHandler<BearerApi> {
 
     @Override
     public void handle(BearerApi annotation, String methodSignature) {
-        String uid = SafContext.defaultBearerUid(annotation.group());
+        String uid = JafContext.defaultBearerUid(annotation.group());
         bearerMap.put(methodSignature, uid);
         if (SuidRequired.OPTIONAL.equals(annotation.suidRequired())) {
             optionalSuidMap.add(methodSignature);

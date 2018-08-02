@@ -1,10 +1,10 @@
 package cn.jcloud.jaf.common.handler;
 
-import com.nd.gaea.client.exception.ResponseErrorMessage;
-import com.nd.gaea.rest.exceptions.rest.AbstractRestErrorHandler;
-import com.nd.social.common.constant.ErrorCode;
-import com.nd.social.common.exception.WafI18NException;
-import com.nd.social.common.util.ValidatorUtil;
+import cn.jcloud.gaea.client.exception.ResponseErrorMessage;
+import cn.jcloud.gaea.rest.exceptions.rest.AbstractRestErrorHandler;
+import cn.jcloud.jaf.common.constant.ErrorCode;
+import cn.jcloud.jaf.common.exception.JafI18NException;
+import cn.jcloud.jaf.common.util.ValidatorUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
@@ -26,7 +26,7 @@ public class MethodArgumentNotValidExceptionHandler extends AbstractRestErrorHan
         errorMessage.setMessage(message);
         errorMessage.setDetail(appendStackTrace(null, throwable));
         errorMessage.setCode(getCode(throwable, request));
-        errorMessage.setThrowable(WafI18NException.of(ErrorCode.INVALID_ARGUMENT));
+        errorMessage.setThrowable(JafI18NException.of(ErrorCode.INVALID_ARGUMENT));
         updateRemoteErrorMessage(errorMessage, request);
         return errorMessage;
     }

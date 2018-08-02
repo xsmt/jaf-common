@@ -5,7 +5,7 @@ import org.springframework.core.NamedThreadLocal;
 
 /**
  * 当前用户上下文
- * @author hasayaki
+ * @author Wei Han
  */
 public class UserHandler {
 

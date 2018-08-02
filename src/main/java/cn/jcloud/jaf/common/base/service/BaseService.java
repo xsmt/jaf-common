@@ -1,7 +1,6 @@
 package cn.jcloud.jaf.common.base.service;
 
-import cn.jcloud.jaf.common.util.JafJsonMapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import cn.jcloud.gaea.util.WafJsonMapper;
 import cn.jcloud.jaf.common.base.domain.BaseDomain;
 import cn.jcloud.jaf.common.base.domain.Module;
 import cn.jcloud.jaf.common.base.repository.BaseRepository;
@@ -10,6 +9,7 @@ import cn.jcloud.jaf.common.exception.JafI18NException;
 import cn.jcloud.jaf.common.query.Items;
 import cn.jcloud.jaf.common.query.ListParam;
 import cn.jcloud.jaf.common.util.ValidatorUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,12 +21,12 @@ import java.util.Map;
 
 /**
  * BaseService
- * Created by closer on 2016/1/5.
+ * Created by Wei Han on 2016/1/5.
  */
 @Transactional
 public abstract class BaseService<T extends BaseDomain<I>, I extends Serializable> {
 
-    private ObjectMapper objectMapper = JafJsonMapper.getMapper();
+    private ObjectMapper objectMapper = WafJsonMapper.getMapper();
 
     @Autowired
     private BaseRepository<T, I> baseRepository;

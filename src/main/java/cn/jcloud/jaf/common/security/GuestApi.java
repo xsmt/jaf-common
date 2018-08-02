@@ -16,14 +16,7 @@ public @interface GuestApi {
     String value() default "";
 
     /**
-     * 是否为基础白名单，默认true
-     * 基础白名单接口没有租户信息，不在后台配置
-     * 非基础白名单必需有租户信息
+     * 是否为基础白名单，true为基础白名单，false为可选白名单，默认true
      */
     boolean common() default true;
-    
-    /**
-     * 是否后台可配置，只针对非基础白名单配置有效，默认true
-     */
-    boolean customizable() default true;
 }

@@ -1,12 +1,12 @@
 package cn.jcloud.jaf.common.taskschedule.service.impl;
 
-import com.nd.gaea.client.http.WafSecurityHttpClient;
-import com.nd.social.common.config.SafContext;
-import com.nd.social.common.handler.TenantHandler;
-import com.nd.social.common.taskschedule.core.TaskScheduleSupportCondition;
-import com.nd.social.common.taskschedule.domain.MsgInfo;
-import com.nd.social.common.taskschedule.domain.TsRegisterReq;
-import com.nd.social.common.taskschedule.service.TaskScheduleService;
+import cn.jcloud.gaea.client.http.WafSecurityHttpClient;
+import cn.jcloud.jaf.common.config.JafContext;
+import cn.jcloud.jaf.common.handler.TenantHandler;
+import cn.jcloud.jaf.common.taskschedule.core.TaskScheduleSupportCondition;
+import cn.jcloud.jaf.common.taskschedule.domain.MsgInfo;
+import cn.jcloud.jaf.common.taskschedule.domain.TsRegisterReq;
+import cn.jcloud.jaf.common.taskschedule.service.TaskScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Conditional;
@@ -41,9 +41,9 @@ public class RedisTaskScheduleService implements TaskScheduleService {
     private String ticketPwd;
 
     public RedisTaskScheduleService() {
-        this(SafContext.getProjectName(),
-                SafContext.getTsTicketUri(),
-                SafContext.getTsTicketPwd());
+        this(JafContext.getProjectName(),
+                JafContext.getTsTicketUri(),
+                JafContext.getTsTicketPwd());
     }
 
     public RedisTaskScheduleService(String tsName) {
@@ -69,7 +69,7 @@ public class RedisTaskScheduleService implements TaskScheduleService {
      */
     @PostConstruct
     public void registerTS() {
-        String tsUri = SafContext.getTsUri();
+        String tsUri = JafContext.getTsUri();
         if (null == tsUri) {
             return;
         }
@@ -78,7 +78,7 @@ public class RedisTaskScheduleService implements TaskScheduleService {
                 .name(tsName)
                 .ticketUri(ticketUri)
                 .ticketPwd(ticketPwd)
-                .projectName(SafContext.getProjectName())
+                .projectName(JafContext.getProjectName())
                 .build();
         httpClient.post(tsUri + TS_REGISTER_URI, req);
     }

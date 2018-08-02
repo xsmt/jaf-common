@@ -1,11 +1,11 @@
 package cn.jcloud.jaf.common.tenant.repository;
 
-import com.nd.social.common.base.repository.BizRepository;
-import com.nd.social.common.tenant.domain.Tenant;
+import cn.jcloud.jaf.common.base.repository.BizRepository;
+import cn.jcloud.jaf.common.tenant.domain.Tenant;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by closer on 2016/1/27.
+ * Created by Wei Han on 2016/1/27.
  */
 @Repository
 public interface TenantRepository extends BizRepository<Tenant, Long> {

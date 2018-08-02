@@ -7,11 +7,7 @@ import java.util.List;
  */
 public class BatchAddVo {
 
-    public BatchAddVo() {
-		super();
-	}
-
-	private List<String> accesses;
+    private List<String> accesses;
 
     public List<String> getAccesses() {
         return this.accesses;

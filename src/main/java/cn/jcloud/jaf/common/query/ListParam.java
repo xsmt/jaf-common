@@ -1,12 +1,12 @@
 package cn.jcloud.jaf.common.query;
 
+import cn.jcloud.gaea.util.WafJsonMapper;
 import cn.jcloud.jaf.common.constant.ErrorCode;
 import cn.jcloud.jaf.common.exception.JafI18NException;
-import cn.jcloud.jaf.common.util.JafJsonMapper;
+import cn.jcloud.jaf.common.util.ReflectUtil;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import cn.jcloud.jaf.common.util.ReflectUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -176,7 +176,7 @@ public class ListParam<T> extends SlicePage<T> {
             filterValue = '"' + filterValue + '"';
         }
         try {
-            return JafJsonMapper.getMapper().readValue(filterValue, fieldType);
+            return WafJsonMapper.getMapper().readValue(filterValue, fieldType);
         } catch (IOException e) {
             throw JafI18NException.of(e.getMessage(), ErrorCode.INVALID_QUERY);
         }

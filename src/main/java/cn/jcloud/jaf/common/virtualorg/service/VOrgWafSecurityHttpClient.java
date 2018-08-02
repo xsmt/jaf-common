@@ -1,13 +1,10 @@
 package cn.jcloud.jaf.common.virtualorg.service;
 
-import com.nd.gaea.client.http.WafSecurityHttpClient;
-import com.nd.social.common.constant.Constants;
-import com.nd.social.common.handler.VOrgHandler;
+import cn.jcloud.gaea.client.http.WafSecurityHttpClient;
+import cn.jcloud.jaf.common.constant.Constants;
+import cn.jcloud.jaf.common.handler.VOrgHandler;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-
-import java.net.URI;
 
 /**
  * 支持虚拟组织的WafSecurityHttpClient
@@ -31,8 +28,8 @@ public class VOrgWafSecurityHttpClient extends WafSecurityHttpClient {
     }
 
     @Override
-    protected HttpHeaders mergerHeaders(URI uri, HttpMethod method, HttpHeaders headers) {
-        headers = super.mergerHeaders(uri, method, headers);
+    protected HttpHeaders mergerHeaders(HttpHeaders headers) {
+        headers = super.mergerHeaders(headers);
         if (StringUtils.isBlank(VOrgHandler.getVOrgName())) {
             return headers;
         }

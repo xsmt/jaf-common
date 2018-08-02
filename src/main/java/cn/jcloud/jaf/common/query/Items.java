@@ -1,6 +1,6 @@
 package cn.jcloud.jaf.common.query;
 
-import cn.jcloud.jaf.common.util.JafJsonMapper;
+import cn.jcloud.gaea.util.WafJsonMapper;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.databind.JavaType;
@@ -13,7 +13,7 @@ import java.util.List;
  * wrap the list query result by jpa. Use <T> to generic return object.
  *
  * @param <T>
- * @author hasayaki
+ * @author Wei Han
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Items<T> implements Iterable<T> {
@@ -36,7 +36,7 @@ public class Items<T> implements Iterable<T> {
      * 使用传入的List进行构建Items
      */
     public static <T> Items<T> of(List<T> items) {
-        Items<T> result = new Items<T>();
+        Items<T> result = new Items<>();
         result.items = items;
         return result;
     }
@@ -110,7 +110,7 @@ public class Items<T> implements Iterable<T> {
      * @return
      */
     public static <T> JavaType constructJsonType(Class<T> itemClass) {
-        return JafJsonMapper
+        return WafJsonMapper
                 .getMapper()
                 .getTypeFactory()
                 .constructParametrizedType(Items.class, Items.class, itemClass);

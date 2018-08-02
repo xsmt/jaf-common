@@ -1,8 +1,8 @@
 package cn.jcloud.jaf.common.taskschedule.domain;
 
+import cn.jcloud.jaf.common.constant.ErrorCode;
+import cn.jcloud.jaf.common.exception.JafI18NException;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.nd.social.common.constant.ErrorCode;
-import com.nd.social.common.exception.WafI18NException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -167,16 +167,16 @@ public class ImMsg {
         private void check() {
             if (toUser) {
                 if (CollectionUtils.isEmpty(toUid)) {
-                    throw WafI18NException.of("缺少参数【ImMsg.toUid】", ErrorCode.REQUIRE_ARGUMENT);
+                    throw JafI18NException.of("缺少参数【ImMsg.toUid】", ErrorCode.REQUIRE_ARGUMENT);
                 }
             } else {
                 if (StringUtils.isBlank(orgId) || StringUtils.isBlank(nodeId)) {
-                    throw WafI18NException.of("缺少参数【ImMsg.orgId】或【ImMsg.nodeId】", ErrorCode.REQUIRE_ARGUMENT);
+                    throw JafI18NException.of("缺少参数【ImMsg.orgId】或【ImMsg.nodeId】", ErrorCode.REQUIRE_ARGUMENT);
                 }
             }
             if (StringUtils.isBlank(data)) {
                 if (StringUtils.isBlank(orgId) || StringUtils.isBlank(nodeId)) {
-                    throw WafI18NException.of("缺少参数【ImMsg.data】", ErrorCode.REQUIRE_ARGUMENT);
+                    throw JafI18NException.of("缺少参数【ImMsg.data】", ErrorCode.REQUIRE_ARGUMENT);
                 }
             }
         }

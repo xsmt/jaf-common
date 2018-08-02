@@ -15,6 +15,5 @@ public interface CommonModules {
     Module GUEST_WHITE_LIST = new Module("GUEST_WHITE_LIST");
 
     Module CACHE = new Module("CACHE");
-    
-    Module APP_ROUTER = new Module("APP_ROUTER");
+
 }

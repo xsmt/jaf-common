@@ -1,6 +1,6 @@
 package cn.jcloud.jaf.common.security;
 
-import com.nd.social.common.util.ReflectUtil;
+import cn.jcloud.jaf.common.util.ReflectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;

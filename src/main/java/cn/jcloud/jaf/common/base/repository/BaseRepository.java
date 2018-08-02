@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by closer on 2016/1/5.
+ * Created by Wei Han on 2016/1/5.
  */
 @NoRepositoryBean
 public interface BaseRepository<T extends BaseDomain<I>, I extends Serializable> extends PagingAndSortingRepository<T, I> {

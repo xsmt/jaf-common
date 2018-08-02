@@ -6,10 +6,6 @@ package cn.jcloud.jaf.common.constant;
  */
 public interface AuthorizationTypePrefix {
     String MAC = "Mac";
-
     String DEBUG = "DEBUG";
-
     String BEARER = "Bearer";
-
-    String BTS = "BTS";
 }

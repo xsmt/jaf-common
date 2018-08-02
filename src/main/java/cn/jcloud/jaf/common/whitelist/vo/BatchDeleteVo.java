@@ -9,12 +9,7 @@ import java.util.List;
  * Created by Wei Han on 2016/3/7.
  */
 public class BatchDeleteVo {
-	
-    public BatchDeleteVo() {
-		super();
-	}
-
-	@NotEmpty(message = "缺少参数ids或为空")
+    @NotEmpty(message = "缺少参数ids或为空")
     private List<Long> ids;
 
     public List<Long> getIds() {

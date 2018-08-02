@@ -1,6 +1,6 @@
 package cn.jcloud.jaf.common.taskschedule.core;
 
-import com.nd.social.common.config.SafContext;
+import cn.jcloud.jaf.common.config.JafContext;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
@@ -13,6 +13,6 @@ public class TaskScheduleSupportCondition implements Condition {
 
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        return SafContext.isTaskScheduleSupport();
+        return JafContext.isTaskScheduleSupport();
     }
 }

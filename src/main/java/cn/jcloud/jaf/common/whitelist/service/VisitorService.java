@@ -1,60 +1,58 @@
 package cn.jcloud.jaf.common.whitelist.service;
 
+import cn.jcloud.gaea.rest.security.services.impl.CacheUtil;
+import cn.jcloud.gaea.rest.security.services.visitor.VistorsService;
+import cn.jcloud.jaf.common.handler.SpringContextHolder;
+import cn.jcloud.jaf.common.handler.TenantHandler;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.nd.gaea.rest.security.services.impl.CacheUtil;
-import com.nd.social.common.handler.SpringContextHolder;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author hasayaki(125473)
- *
+ * @author Wei Han
  */
-@Service
-public class VisitorService {
+public class VisitorService implements VistorsService {
 
-    private static LoadingCache<String, List<String>> guestApiCache;
+    private static LoadingCache<String, List<String>> whiteListCache;
 
     public VisitorService() {
-        initCustomizableWhiteApiCache();
+        initWhiteListCache();
     }
 
-    /**
-     * 获取非基础白名单，后台配置的访客接口列表
-     */
-    public List<String> getCustomizableWhiteApiList(String tenantId) {
-        
-        return CacheUtil.get(guestApiCache, tenantId);
+    @Override
+    public List<String> getWhiteRequestMappings(String key) {
+        TenantHandler.setTenant(key);
+        return CacheUtil.get(whiteListCache, key);
     }
 
     /**
      * 清空缓存
      */
-    public static void cleanCustomizableWhiteApiCache(long tenantId) {
-    	
-        if (guestApiCache != null) {
-            guestApiCache.invalidate(String.valueOf(tenantId));
+    public static void cleanWhiteListCache(long orgId) {
+        if (whiteListCache != null) {
+            whiteListCache.invalidate(String.valueOf(orgId));
         }
     }
 
     /**
      * 初始化缓存
      */
-    private void initCustomizableWhiteApiCache() {
-    	
-        guestApiCache = CacheBuilder.newBuilder().expireAfterWrite(12, TimeUnit.HOURS)
-        		.build(new CacheLoader<String, List<String>>() {
+    private void initWhiteListCache() {
+        whiteListCache = CacheBuilder.newBuilder()
+                .expireAfterWrite(12, TimeUnit.HOURS)
+                .build(new CacheLoader<String, List<String>>() {
 
                     @Override
-                    public List<String> load(String tenantId) throws Exception {
-                        
-                        GuestWhiteListService guestWhiteListService = SpringContextHolder.getBean(GuestWhiteListService.class);
+                    public List<String> load(String key) throws Exception {
+                        TenantHandler.setTenant(key);
+                        GuestWhiteListService guestWhiteListService
+                                = SpringContextHolder.getBean(GuestWhiteListService.class);
                         return guestWhiteListService.findAllAccess();
                     }
                 });
     }
+
 }

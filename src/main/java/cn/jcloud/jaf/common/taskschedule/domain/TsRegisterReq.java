@@ -1,7 +1,7 @@
 package cn.jcloud.jaf.common.taskschedule.domain;
 
-import com.nd.social.common.constant.ErrorCode;
-import com.nd.social.common.exception.WafI18NException;
+import cn.jcloud.jaf.common.constant.ErrorCode;
+import cn.jcloud.jaf.common.exception.JafI18NException;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -62,7 +62,7 @@ public class TsRegisterReq {
 
         public TsRegisterReq build() {
             if (StringUtils.isBlank(this.name)) {
-                throw WafI18NException.of("缺少参数【TsRegisterReq.name】", ErrorCode.REQUIRE_ARGUMENT);
+                throw JafI18NException.of("缺少参数【TsRegisterReq.name】", ErrorCode.REQUIRE_ARGUMENT);
             }
             TsRegisterReq req = new TsRegisterReq();
             req.name = this.name;

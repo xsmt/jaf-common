@@ -1,5 +1,5 @@
 /* =============================================================
- * Created: [2015/7/21 11:11] by wuzj(971643)
+ * Created: [2015/7/21 11:11] by Wei Han
  * =============================================================
  *
  * Copyright 2014-2015 NetDragon Websoft Inc. All Rights Reserved
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author wuzj(971643).
+ * @author Wei Han.
  * @since 0.2
  */
 public class JoinPointUtil {

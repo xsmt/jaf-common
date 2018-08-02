@@ -1,9 +1,9 @@
 package cn.jcloud.jaf.common.whitelist.domain;
 
+import cn.jcloud.jaf.common.base.domain.BaseTenantDomain;
+import cn.jcloud.jaf.common.constant.IDG;
+import cn.jcloud.jaf.common.handler.TenantHandler;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.nd.social.common.base.domain.BaseTenantDomain;
-import com.nd.social.common.constant.IDG;
-import com.nd.social.common.handler.TenantHandler;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -25,7 +25,7 @@ import javax.persistence.Table;
 @Table(name = TenantHandler.PREFIX + "guest_white_list")
 @GenericGenerator(name = "id", strategy = IDG.ASSIGNED)
 @EntityListeners(AuditingEntityListener.class)
-@Document(collection = "#{T(com.nd.social.common.handler.TenantHandler).getTablePrefix().concat('guest_white_list')}")
+@Document(collection = "#{T(cn.jcloud.jaf.common.handler.TenantHandler).getTablePrefix().concat('guest_white_list')}")
 @TypeAlias("GuestWhiteList")
 public class GuestWhiteList extends BaseTenantDomain<Long> {
 

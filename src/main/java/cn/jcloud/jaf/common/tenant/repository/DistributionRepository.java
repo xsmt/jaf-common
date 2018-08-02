@@ -1,7 +1,7 @@
 package cn.jcloud.jaf.common.tenant.repository;
 
-import com.nd.social.common.base.repository.BaseRepository;
-import com.nd.social.common.tenant.domain.Distribution;
+import cn.jcloud.jaf.common.base.repository.BaseRepository;
+import cn.jcloud.jaf.common.tenant.domain.Distribution;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,6 +9,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DistributionRepository extends BaseRepository<Distribution, Integer> {
-	
-	Distribution findByDbConn(String dbConn);
 }

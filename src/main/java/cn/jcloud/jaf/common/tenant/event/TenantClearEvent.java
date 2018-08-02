@@ -1,11 +1,11 @@
 package cn.jcloud.jaf.common.tenant.event;
 
 
-import com.nd.social.common.tenant.domain.Tenant;
+import cn.jcloud.jaf.common.tenant.domain.Tenant;
 
 /**
  * 公司新增事件
- * Created by closer on 2016/1/5.
+ * Created by Wei Han on 2016/1/5.
  */
 public class TenantClearEvent extends TenantEvent {
 

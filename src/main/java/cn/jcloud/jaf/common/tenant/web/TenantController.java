@@ -1,12 +1,12 @@
 package cn.jcloud.jaf.common.tenant.web;
 
-import com.nd.social.common.query.Items;
-import com.nd.social.common.query.ListParam;
-import com.nd.social.common.security.BearerApi;
-import com.nd.social.common.security.SuidRequired;
-import com.nd.social.common.tenant.domain.Tenant;
-import com.nd.social.common.tenant.service.TenantService;
-import com.nd.social.common.tenant.vo.TenantPauseVo;
+import cn.jcloud.jaf.common.query.Items;
+import cn.jcloud.jaf.common.query.ListParam;
+import cn.jcloud.jaf.common.security.BearerApi;
+import cn.jcloud.jaf.common.security.SuidRequired;
+import cn.jcloud.jaf.common.tenant.domain.Tenant;
+import cn.jcloud.jaf.common.tenant.service.TenantService;
+import cn.jcloud.jaf.common.tenant.vo.TenantPauseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @BearerApi(group = "services", suidRequired = SuidRequired.IGNORE)
 @RestController
-@RequestMapping({"/${version}/services", "/${version}/{bizType}/services"})
+@RequestMapping("/${version}/services")
 public class TenantController {
 
     @Autowired

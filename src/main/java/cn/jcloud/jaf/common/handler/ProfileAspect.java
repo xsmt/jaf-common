@@ -1,7 +1,7 @@
 package cn.jcloud.jaf.common.handler;
 
-import com.nd.social.common.config.SafContext;
-import com.nd.social.common.exception.WafI18NException;
+import cn.jcloud.jaf.common.config.JafContext;
+import cn.jcloud.jaf.common.exception.JafI18NException;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,7 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author hasayaki
+ * @author Wei Han
  */
 @Aspect
 @Component
@@ -26,13 +26,13 @@ public class ProfileAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfileAspect.class);
 
     // Service层的日志输出阈值
-    private static final int SERVICE_THRESHOLD = Integer.parseInt(SafContext.getProperty(SafContext.PROFILE_ASPECT_SERVICE_THRESHOLD,"50"));
+    private static final int SERVICE_THRESHOLD = Integer.parseInt(JafContext.getProperty(JafContext.PROFILE_ASPECT_SERVICE_THRESHOLD,"50"));
     // Dao层 的日志输出阈值
-    private static final int DAO_THRESHOLD = Integer.parseInt(SafContext.getProperty(SafContext.PROFILE_ASPECT_DAO_THRESHOLD,"20"));
+    private static final int DAO_THRESHOLD = Integer.parseInt(JafContext.getProperty(JafContext.PROFILE_ASPECT_DAO_THRESHOLD,"20"));
     // 是否打印Service层方法参数
-    private static final boolean SERVICE_ARG_PRINT = Boolean.parseBoolean(SafContext.getProperty(SafContext.PROFILE_ASPECT_SERVICE_ARG_PRINT,"false"));
+    private static final boolean SERVICE_ARG_PRINT = Boolean.parseBoolean(JafContext.getProperty(JafContext.PROFILE_ASPECT_SERVICE_ARG_PRINT,"false"));
     // 是否打印Dao层方法参数
-    private static final boolean DAO_ARG_PRINT = Boolean.parseBoolean(SafContext.getProperty(SafContext.PROFILE_ASPECT_DAO_ARG_PRINT,"false"));
+    private static final boolean DAO_ARG_PRINT = Boolean.parseBoolean(JafContext.getProperty(JafContext.PROFILE_ASPECT_DAO_ARG_PRINT,"false"));
 
     @Pointcut("(@within(org.springframework.web.bind.annotation.RestController)" +
             "||@within(org.springframework.stereotype.Controller))" +
@@ -52,8 +52,8 @@ public class ProfileAspect {
             long cost = end - timeStart;
             StringBuilder logStringBuilder = getControllerLogSB(jp.getSignature().toString().split("\\s|\\(")[1]);
             logStringBuilder.append(" ");
-            if (e instanceof WafI18NException) {
-                logStringBuilder.append(((WafI18NException) e).getError().getCode());
+            if (e instanceof JafI18NException) {
+                logStringBuilder.append(((JafI18NException) e).getError().getCode());
             } else {
                 logStringBuilder.append("INTERNAL_SERVER_ERROR");
             }
@@ -88,12 +88,7 @@ public class ProfileAspect {
         }
         String vOrgId = VOrgHandler.getVOrgId();
         if (StringUtils.isEmpty(vOrgId)) {
-        	String appId = AppRouterHandler.getAppId();
-        	if (StringUtils.isNotBlank(appId)) {
-        		logStringBuilder.append("#").append(appId);
-        	} else {
-        		logStringBuilder.append("#-");
-        	}
+            logStringBuilder.append("#-");
         } else {
             logStringBuilder.append("#").append(vOrgId);
         }
@@ -127,7 +122,7 @@ public class ProfileAspect {
     }
 
     @Pointcut("(@within(org.springframework.stereotype.Service)" +
-            "||target(com.nd.social.common.base.service.BaseService))" +
+            "||target(cn.jcloud.jaf.common.base.service.BaseService))" +
             "&& execution(public * *(..))")
     public void contServiceExec() {
         //Empty

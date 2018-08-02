@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 @Configuration
 @EnableAsync(proxyTargetClass = true)
 @EnableScheduling
-@ComponentScan(basePackages = "com.jcloud",
+@ComponentScan(basePackages = "cn.jcloud",
         excludeFilters = @ComponentScan.Filter({Controller.class, Configuration.class,
                 Repository.class, ControllerAdvice.class}))
 public class ServiceConfigurerAdapter {

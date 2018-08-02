@@ -3,6 +3,7 @@ package cn.jcloud.jaf.common.cache.web;
 import cn.jcloud.jaf.common.constant.CommonModules;
 import cn.jcloud.jaf.common.constant.ErrorCode;
 import cn.jcloud.jaf.common.exception.JafI18NException;
+import cn.jcloud.jaf.common.security.SecretApi;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
@@ -14,8 +15,9 @@ import org.springframework.web.bind.annotation.*;
  * 缓存控制器
  * Created by Wei Han on 2016/5/6.
  */
+@SecretApi
 @RestController
-@RequestMapping({"/${version}/caches", "/${version}/{bizType}/caches"})
+@RequestMapping("/${version}/caches")
 public class CacheController {
 
     @Autowired(required = false)

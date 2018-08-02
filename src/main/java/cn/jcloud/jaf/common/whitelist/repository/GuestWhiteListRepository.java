@@ -1,7 +1,7 @@
 package cn.jcloud.jaf.common.whitelist.repository;
 
-import com.nd.social.common.base.repository.BaseTenantRepository;
-import com.nd.social.common.whitelist.domain.GuestWhiteList;
+import cn.jcloud.jaf.common.base.repository.BaseTenantRepository;
+import cn.jcloud.jaf.common.whitelist.domain.GuestWhiteList;
 import org.springframework.stereotype.Repository;
 
 /**

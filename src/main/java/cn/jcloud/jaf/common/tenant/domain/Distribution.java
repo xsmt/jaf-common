@@ -1,6 +1,6 @@
 package cn.jcloud.jaf.common.tenant.domain;
 
-import com.nd.social.common.base.domain.BaseDomain;
+import cn.jcloud.jaf.common.base.domain.BaseDomain;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;

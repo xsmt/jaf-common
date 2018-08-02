@@ -2,6 +2,7 @@ package cn.jcloud.jaf.common.config;
 
 import cn.jcloud.jaf.common.cache.core.CacheSupport;
 import cn.jcloud.jaf.common.constant.CommonCacheNames;
+import cn.jcloud.jaf.common.tenant.domain.Tenant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -28,6 +29,7 @@ public abstract class AbstractCacheConfigurerAdapter {
     @Bean
     public CacheManager cacheManager() {
         Set<CacheManager> cacheManagers = new HashSet<>();
+        cacheManagers.add(newCacheManager(Tenant.class, CommonCacheNames.TENANT));
 
         handleCacheSupport(cacheManagers);
 

@@ -1,6 +1,6 @@
 package cn.jcloud.jaf.common.http;
 
-import org.springframework.web.client.RestTemplate;
+import cn.jcloud.gaea.client.http.WafSecurityHttpClient;
 
-public class JafSecurityHttpClient extends RestTemplate {
+public class JafSecurityHttpClient extends WafSecurityHttpClient {
 }

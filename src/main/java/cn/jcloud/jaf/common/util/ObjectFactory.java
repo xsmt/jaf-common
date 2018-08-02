@@ -1,8 +1,7 @@
 package cn.jcloud.jaf.common.util;
 
-
-import cn.jcloud.jaf.common.http.JafHttpClient;
-import cn.jcloud.jaf.common.http.JafSecurityHttpClient;
+import cn.jcloud.gaea.client.http.WafHttpClient;
+import cn.jcloud.gaea.client.http.WafSecurityHttpClient;
 import cn.jcloud.jaf.common.query.Condition;
 
 /**
@@ -10,8 +9,8 @@ import cn.jcloud.jaf.common.query.Condition;
  * Created by Wei Han on 2016/4/12.
  */
 public class ObjectFactory {
-    private static JafHttpClient jafHttpClient;
-    private static JafSecurityHttpClient jafSecurityHttpClient;
+    private static WafHttpClient wafHttpClient;
+    private static WafSecurityHttpClient wafSecurityHttpClient;
     private static Condition deletedCondition;
 
     private ObjectFactory() {
@@ -21,30 +20,30 @@ public class ObjectFactory {
      * Waf已有将WafHttpClient注册成Bean，请直接使用
      */
     @Deprecated
-    public static JafHttpClient wafHttpClient() {
-        if (jafHttpClient == null) {
+    public static WafHttpClient wafHttpClient() {
+        if (wafHttpClient == null) {
             synchronized (ObjectFactory.class) {
-                if (jafHttpClient == null) {
-                    jafHttpClient = new JafHttpClient();
+                if (wafHttpClient == null) {
+                    wafHttpClient = new WafHttpClient();
                 }
             }
         }
-        return jafHttpClient;
+        return wafHttpClient;
     }
 
     /**
      * Waf已有将WafSecurityHttpClient注册成Bean，请直接使用
      */
     @Deprecated
-    public static JafSecurityHttpClient wafSecurityHttpClient() {
-        if (jafSecurityHttpClient == null) {
+    public static WafSecurityHttpClient wafSecurityHttpClient() {
+        if (wafSecurityHttpClient == null) {
             synchronized (ObjectFactory.class) {
-                if (jafSecurityHttpClient == null) {
-                    jafSecurityHttpClient = new JafSecurityHttpClient();
+                if (wafSecurityHttpClient == null) {
+                    wafSecurityHttpClient = new WafSecurityHttpClient();
                 }
             }
         }
-        return jafSecurityHttpClient;
+        return wafSecurityHttpClient;
     }
 
     public static Condition deletedCondition() {

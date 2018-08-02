@@ -1,12 +1,11 @@
 package cn.jcloud.jaf.common.config;
 
-import cn.jcloud.jaf.common.util.JafJsonMapper;
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.type.CollectionType;
+import cn.jcloud.gaea.util.WafJsonMapper;
 import cn.jcloud.jaf.common.cache.core.RedisCacheSupportCondition;
 import cn.jcloud.jaf.common.exception.JafI18NException;
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
@@ -42,31 +41,31 @@ public class RedisCacheConfigurerAdapter extends AbstractCacheConfigurerAdapter 
 
     private final ObjectMapper objectMapper;
 
-    @Value("${redis.host}")
-    private String host;
+    @Value("${redis.host:'localhost'}")
+    private String host = "localhost";
 
     @Value("${redis.password:}")
     private String password;
 
-    @Value("${redis.port}")
-    private int port;
+    @Value("${redis.port:6378}")
+    private int port = 6378;
 
-    @Value("${redis.db}")
-    private int db;
+    @Value("${redis.db:0}")
+    private int db = 0;
 
-    @Value("${redis.pool.maxActive}")
+    @Value("${redis.pool.maxActive:#{T(redis.clients.jedis.JedisPoolConfig).DEFAULT_MAX_TOTAL}}")
     private int maxActive;
 
-    @Value("${redis.pool.maxIdle}")
+    @Value("${redis.pool.maxIdle:#{T(redis.clients.jedis.JedisPoolConfig).DEFAULT_MAX_IDLE}}")
     private int maxIdle;
 
-    @Value("${redis.pool.minIdle}")
+    @Value("${redis.pool.minIdle:#{T(redis.clients.jedis.JedisPoolConfig).DEFAULT_MIN_IDLE}}")
     private int minIdle;
 
-    @Value("${redis.pool.maxWait}")
+    @Value("${redis.pool.maxWait:#{T(redis.clients.jedis.JedisPoolConfig).DEFAULT_MAX_WAIT_MILLIS}}")
     private long maxWait;
 
-    @Value("${redis.pool.testOnBorrow}")
+    @Value("${redis.pool.testOnBorrow:#{T(redis.clients.jedis.JedisPoolConfig).DEFAULT_TEST_ON_BORROW}}")
     private boolean testOnBorrow;
 
     public RedisCacheConfigurerAdapter() {
@@ -74,7 +73,6 @@ public class RedisCacheConfigurerAdapter extends AbstractCacheConfigurerAdapter 
             throw JafI18NException.of("when redis cache is unavailable,your cache config must extends LocalCacheConfigurerAdapter");
         }
         objectMapper = objectMapper();
-        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
     }
 
     public void registerModule(Module module) {
@@ -82,7 +80,7 @@ public class RedisCacheConfigurerAdapter extends AbstractCacheConfigurerAdapter 
     }
 
     protected ObjectMapper objectMapper() {
-        return JafJsonMapper.getMapper();
+        return WafJsonMapper.getMapper();
     }
 
     @Bean

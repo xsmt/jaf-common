@@ -1,10 +1,10 @@
 package cn.jcloud.jaf.common.util;
 
-import com.nd.gaea.WafException;
-import com.nd.social.common.base.domain.BaseTenantDomain;
-import com.nd.social.common.constant.IErrorCode;
-import com.nd.social.common.handler.TenantHandler;
-import com.nd.social.common.tenant.domain.Tenant;
+import cn.jcloud.gaea.WafException;
+import cn.jcloud.jaf.common.base.domain.BaseTenantDomain;
+import cn.jcloud.jaf.common.constant.IErrorCode;
+import cn.jcloud.jaf.common.handler.TenantHandler;
+import cn.jcloud.jaf.common.tenant.domain.Tenant;
 
 import java.io.Serializable;
 
@@ -29,12 +29,10 @@ public class UTUtils {
      */
     public static void verifyErrorCode(IErrorCode errorCode, Exception ex) {
         if (ex == null) {
-            fail("预期抛出[WafI18NException]，但实际未抛出");
-            return;
+            fail("预期抛出[JafI18NException]，但实际未抛出");
         }
         if (!WafException.class.isAssignableFrom(ex.getClass())) {
-            fail("预期抛出[WafI18NException]，但实际为[" + ex.getClass().getCanonicalName() + "]");
-            return;
+            fail("预期抛出[JafI18NException]，但实际为[" + ex.getClass().getCanonicalName() + "]");
         }
         WafException tmp = (WafException) ex;
         assertEquals(errorCode.getCode(), tmp.getError().getCode());
@@ -48,12 +46,10 @@ public class UTUtils {
      */
     public static void verifyErrorCode(String errorCode, Exception ex) {
         if (ex == null) {
-            fail("预期抛出[WafI18NException]，但实际未抛出");
-            return;
+            fail("预期抛出[JafI18NException]，但实际未抛出");
         }
         if (!WafException.class.isAssignableFrom(ex.getClass())) {
-            fail("预期抛出[WafI18NException]，但实际为[" + ex.getClass().getCanonicalName() + "]");
-            return;
+            fail("预期抛出[JafI18NException]，但实际为[" + ex.getClass().getCanonicalName() + "]");
         }
         WafException tmp = (WafException) ex;
         assertEquals(errorCode, tmp.getError().getCode());
@@ -67,12 +63,10 @@ public class UTUtils {
      */
     public static void verifyErrorCode(WafException expect, Exception actual) {
         if (actual == null) {
-            fail("预期抛出[WafI18NException]，但实际未抛出");
-            return;
+            fail("预期抛出[JafI18NException]，但实际未抛出");
         }
         if (!WafException.class.isAssignableFrom(actual.getClass())) {
-            fail("预期抛出[WafI18NException]，但实际为[" + actual.getClass().getCanonicalName() + "]");
-            return;
+            fail("预期抛出[JafI18NException]，但实际为[" + actual.getClass().getCanonicalName() + "]");
         }
         WafException tmp = (WafException) actual;
         assertEquals(expect.getError().getCode(), tmp.getError().getCode());
@@ -86,12 +80,10 @@ public class UTUtils {
      */
     public static void verifyErrorMsg(String expect, Exception actual) {
         if (actual == null) {
-            fail("预期抛出[WafI18NException]，但实际未抛出");
-            return;
+            fail("预期抛出[JafI18NException]，但实际未抛出");
         }
         if (!WafException.class.isAssignableFrom(actual.getClass())) {
-            fail("预期抛出[WafI18NException]，但实际为[" + actual.getClass().getCanonicalName() + "]");
-            return;
+            fail("预期抛出[JafI18NException]，但实际为[" + actual.getClass().getCanonicalName() + "]");
         }
         WafException tmp = (WafException) actual;
         assertEquals(expect, tmp.getError().getMessage());

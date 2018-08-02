@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by closer on 2016/1/27.
+ * Created by Wei Han on 2016/1/27.
  */
 public abstract class BaseTenantService<T extends BaseTenantDomain<I>, I extends Serializable>
         extends BaseService<T, I> {

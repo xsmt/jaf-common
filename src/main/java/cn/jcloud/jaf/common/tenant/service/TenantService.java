@@ -1,22 +1,21 @@
 package cn.jcloud.jaf.common.tenant.service;
 
-import com.nd.gaea.rest.security.authens.Organization;
-import com.nd.gaea.rest.security.authens.UserInfo;
-import com.nd.gaea.rest.security.services.RealmService;
-import com.nd.gaea.rest.security.services.WafUserDetailsService;
-import com.nd.gaea.rest.security.services.visitor.OrganizationService;
-import com.nd.social.common.base.domain.Module;
-import com.nd.social.common.base.service.BizService;
-import com.nd.social.common.constant.CommonModules;
-import com.nd.social.common.constant.ErrorCode;
-import com.nd.social.common.exception.WafI18NException;
-import com.nd.social.common.handler.TenantHandler;
-import com.nd.social.common.handler.VOrgHandler;
-import com.nd.social.common.tenant.domain.Tenant;
-import com.nd.social.common.tenant.event.TenantCreateEvent;
-import com.nd.social.common.tenant.repository.TenantRepository;
-import com.nd.social.common.util.UCHelper;
-import com.nd.social.common.virtualorg.service.VirtualOrgService;
+import cn.jcloud.gaea.rest.security.authens.Organization;
+import cn.jcloud.gaea.rest.security.authens.UserInfo;
+import cn.jcloud.gaea.rest.security.services.RealmService;
+import cn.jcloud.gaea.rest.security.services.WafUserDetailsService;
+import cn.jcloud.gaea.rest.security.services.visitor.OrganizationService;
+import cn.jcloud.jaf.common.base.domain.Module;
+import cn.jcloud.jaf.common.base.service.BizService;
+import cn.jcloud.jaf.common.constant.CommonModules;
+import cn.jcloud.jaf.common.constant.ErrorCode;
+import cn.jcloud.jaf.common.exception.JafI18NException;
+import cn.jcloud.jaf.common.handler.TenantHandler;
+import cn.jcloud.jaf.common.handler.VOrgHandler;
+import cn.jcloud.jaf.common.tenant.domain.Tenant;
+import cn.jcloud.jaf.common.tenant.event.TenantCreateEvent;
+import cn.jcloud.jaf.common.tenant.repository.TenantRepository;
+import cn.jcloud.jaf.common.virtualorg.service.VirtualOrgService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -27,6 +26,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * 租户Service
@@ -91,21 +91,6 @@ public class TenantService extends BizService<Tenant, Long> {
         publisher.publishEvent(new TenantCreateEvent(tenant));
         return tenant;
     }
-    
-    public Tenant addAssociatedWithAppRouterAdd(Tenant tenant){
-    	
-    	String templateId = tenant.getTemplateId();
-    	tenant = tenantRepository.save(tenant);
-    	tenant.setTemplateId(templateId);
-    	
-    	try {
-			publisher.publishEvent(new TenantCreateEvent(tenant));
-		} catch (Exception e) {
-			tenantRepository.delete(tenant);
-			throw WafI18NException.of(ErrorCode.CREATE_TENANT_ASSOCIATE_OP_NG);
-		}
-    	return tenant;
-    }
 
     public Tenant pause(Long id, boolean pauseFlag, String msg) {
         Tenant tenant = findStrictOne(id);
@@ -147,67 +132,70 @@ public class TenantService extends BizService<Tenant, Long> {
         update(tenant);
     }
 
+    public void setGuestTenant(String vOrgName, String orgName) {
+        String activeOrgName = StringUtils.defaultIfEmpty(vOrgName, orgName);
+        if (StringUtils.isEmpty(activeOrgName)) {
+            return;
+        }
+        Organization organization = organizationService.query(activeOrgName);
+        setTenantByOrgId(organization.getOrgId());
+        if (!StringUtils.isEmpty(vOrgName)) {
+            VOrgHandler.setVOrgId(organization.getOrgId());
+            VOrgHandler.setVOrgName(vOrgName);
+        }
+    }
+
     public void setUserTenant(String vOrgName, String orgId, UserInfo userInfo) {
         String activeOrgId;
         //如果不包含有vOrgName(头部vorg)则直接使用用户信息中的组织id
         if (StringUtils.isEmpty(vOrgName)) {
-            activeOrgId = UCHelper.getUserOrgId(userInfo);
+            activeOrgId = getUserOrgId(userInfo);
         } else {
             Organization organization = organizationService.query(vOrgName);
             activeOrgId = organization.getOrgId();
-            UserInfo vorgUserInfo = wafUserDetailsService.getVorgUserInfo(userInfo.getUserId(),
-                    realmService.getRealm(null), activeOrgId);
-            try {
-                vorgUserInfo.getOrgExinfo();
-                VOrgHandler.setVOrgId(activeOrgId);
-                VOrgHandler.setVOrgName(vOrgName);
-                // 如果指定的虚拟组织没开通服务
-                if (!exists(activeOrgId) && null == tenantAutoCreatable) {
-                    // 如果没有指定orgId，则通过用户上下文获取
-                    if (StringUtils.isEmpty(orgId)) {
-                        activeOrgId = UCHelper.getUserOrgId(vorgUserInfo);
-                    } else {
-                        // 校验指定的orgId（Parameter中的orgId）是否在虚拟组织内
-                        virtualOrgService.getVoNodeInfo(activeOrgId, orgId);
-                        activeOrgId = orgId;
-                    }
+            wafUserDetailsService.getVorgUserInfo(userInfo.getUserId(), realmService.getRealm(null), activeOrgId);
+            VOrgHandler.setVOrgId(activeOrgId);
+            VOrgHandler.setVOrgName(vOrgName);
+            //如果指定的虚拟组织没开通服务
+            if (!exists(activeOrgId) && null == tenantAutoCreatable) {
+                //如果没有指定orgId，则通过用户上下文获取
+                if (StringUtils.isEmpty(orgId)) {
+                    activeOrgId = getUserOrgId(userInfo);
+                } else {
+                    //校验指定的orgId（Parameter中的orgId）是否在虚拟组织内
+                    virtualOrgService.getVoNodeInfo(activeOrgId, orgId);
+                    activeOrgId = orgId;
                 }
-            } catch (Exception e) {
-            	VOrgHandler.clear();
-                activeOrgId = UCHelper.getUserOrgId(userInfo); // 实体组织访问
             }
         }
-        setTenantByTenantId(activeOrgId);
+        setTenantByOrgId(activeOrgId);
     }
 
-    public void setTenantByTenantId(String tenantId) {
-    	
-        Tenant tenant = findOne(tenantId);
+    private void setTenantByOrgId(String orgId) {
+        if (StringUtils.isEmpty(orgId)) {
+            return;
+        }
+        Tenant tenant = findOne(orgId);
         if (tenant == null) {
             if (tenantAutoCreatable == null) {
                 throw module().notFound();
             } else {
-                tenant = add(tenantAutoCreatable.getByOrgId(tenantId));
+                tenant = add(tenantAutoCreatable.getByOrgId(orgId));
             }
-        }else if (tenant.isPauseFlag()) {
-            throw WafI18NException.of(tenant.getMsg(), ErrorCode.OUT_OF_SERVICE);
-        }else{
-        	updateTenantAccessTime(tenant);
-        	TenantHandler.setTenant(tenant);
         }
+        if (tenant.isPauseFlag()) {
+            throw JafI18NException.of(tenant.getMsg(), ErrorCode.OUT_OF_SERVICE);
+        }
+        updateTenantAccessTime(tenant);
+        TenantHandler.setTenant(tenant);
     }
-    
-    public boolean isValidOrg(String orgId){
-    	
-    	Tenant tenant = findOne(orgId);
-        if (tenant == null) {
-            return false;
-        }else if (tenant.isPauseFlag()) {
-            throw WafI18NException.of(tenant.getMsg(), ErrorCode.OUT_OF_SERVICE);
-        }else{
-        	updateTenantAccessTime(tenant);
-            TenantHandler.setTenant(tenant);
-            return true;
+
+    private String getUserOrgId(UserInfo userInfo) {
+        Map<String, Object> orgExInfo = userInfo.getOrgExinfo();
+        if (orgExInfo != null && orgExInfo.containsKey("org_id")) {
+            return orgExInfo.get("org_id").toString();
+        } else {
+            throw JafI18NException.of(ErrorCode.MISSING_ORG_ID);
         }
     }
 }

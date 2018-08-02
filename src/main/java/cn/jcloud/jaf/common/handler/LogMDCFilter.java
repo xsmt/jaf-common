@@ -1,7 +1,6 @@
 package cn.jcloud.jaf.common.handler;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.MDC;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author hackingwu.
+ * @author Wei Han.
  */
 public class LogMDCFilter extends OncePerRequestFilter {
 
@@ -22,14 +21,10 @@ public class LogMDCFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
 
-        StringBuilder requestId = new StringBuilder(32);
-        if (StringUtils.isNotBlank(request.getHeader("X-B3-TraceId"))){
-        	requestId.append(request.getHeader("X-B3-TraceId"));
-        } else {
-        	requestId.append(RandomStringUtils.randomAlphanumeric(16))
-            	.append('@').append(Thread.currentThread().getId());
-        }
-        
+        StringBuilder requestId = new StringBuilder(20);
+        requestId.append(RandomStringUtils.randomAlphanumeric(16))
+                .append('@')
+                .append(Thread.currentThread().getId());
         try {
             MDC.put("RequestId", requestId);
             filterChain.doFilter(request, response);

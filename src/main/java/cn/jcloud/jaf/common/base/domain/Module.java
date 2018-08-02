@@ -1,8 +1,7 @@
 package cn.jcloud.jaf.common.base.domain;
 
-
+import cn.jcloud.gaea.WafException;
 import cn.jcloud.jaf.common.constant.ErrorCode;
-import cn.jcloud.jaf.common.exception.JafException;
 import cn.jcloud.jaf.common.exception.JafI18NException;
 import cn.jcloud.jaf.common.util.I18NUtil;
 import org.springframework.http.HttpStatus;
@@ -36,17 +35,17 @@ public class Module {
         return I18NUtil.getDefaultI18NMsg(this.i18nModuleCode, this.code);
     }
 
-    public JafException notFound() {
+    public WafException notFound() {
         String errorCode = ErrorCode.PREFIX + this.code + "_NOT_FOUND";
         return JafI18NException.of(errorCode, "module.not.found", HttpStatus.NOT_FOUND, i18nModuleCode);
     }
 
-    public JafException notFound(String message) {
+    public WafException notFound(String message) {
         String errorCode = ErrorCode.PREFIX + this.code + "_NOT_FOUND";
         return JafI18NException.of(errorCode, message, HttpStatus.NOT_FOUND);
     }
 
-    public JafException existed() {
+    public WafException existed() {
         String errorCode = ErrorCode.PREFIX + this.code + "_EXISTED";
         return JafI18NException.of(errorCode, "module.existed", HttpStatus.CONFLICT, i18nModuleCode);
     }
@@ -57,7 +56,7 @@ public class Module {
      * @param value 名称
      * @return 相应的异常
      */
-    public JafException nameExisted(String value) {
+    public WafException nameExisted(String value) {
         String errorCode = ErrorCode.PREFIX + this.code + "_NAME_EXISTED";
         return JafI18NException.of(errorCode, "module.name.existed", HttpStatus.CONFLICT, i18nModuleCode, value);
     }
@@ -68,13 +67,13 @@ public class Module {
      * @param module2 被关联的模块
      * @return 相应的异常
      */
-    public JafException associatedWith(Module module2) {
+    public WafException associatedWith(Module module2) {
         String errorCode = ErrorCode.PREFIX + this.code + "_ASSOCIATED_WITH_" + module2.code;
         return JafI18NException.of(errorCode, "module.associated.with.module2",
                 HttpStatus.NOT_ACCEPTABLE, i18nModuleCode, module2.i18nModuleCode);
     }
 
-    public JafException nullId() {
+    public WafException nullId() {
         return JafI18NException.of("module.null.id", ErrorCode.INVALID_ARGUMENT, i18nModuleCode);
     }
 }

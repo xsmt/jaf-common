@@ -10,7 +10,7 @@ public class Constants {
      * 已过时，请使用{@code RealmService.getRealm}替换
      */
     @Deprecated
-    public static final String REALM_PROPERTY = "jaf.uc.realm";
+    public static final String REALM_PROPERTY = "waf.uc.realm";
 
     public static final String VORG_HEADER = "vorg";
 

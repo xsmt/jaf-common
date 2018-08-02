@@ -1,9 +1,9 @@
 package cn.jcloud.jaf.common.taskschedule.domain;
 
+import cn.jcloud.jaf.common.constant.ErrorCode;
+import cn.jcloud.jaf.common.exception.JafI18NException;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.nd.social.common.constant.ErrorCode;
-import com.nd.social.common.exception.WafI18NException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpMethod;
 
@@ -203,18 +203,18 @@ public class MsgInfo {
         private void check() {
             if (MsgType.REPOST == this.type) {
                 if (StringUtils.isBlank(this.url)) {
-                    throw WafI18NException.of("缺少参数【MsgInfo.url】", ErrorCode.REQUIRE_ARGUMENT);
+                    throw JafI18NException.of("缺少参数【MsgInfo.url】", ErrorCode.REQUIRE_ARGUMENT);
                 }
                 if (null == this.method) {
-                    throw WafI18NException.of("缺少参数【MsgInfo.method】", ErrorCode.REQUIRE_ARGUMENT);
+                    throw JafI18NException.of("缺少参数【MsgInfo.method】", ErrorCode.REQUIRE_ARGUMENT);
                 }
             }
             if (MsgType.IM == this.type || MsgType.IM_MULTI_LANG == type) {
                 if (null == imMsg) {
-                    throw WafI18NException.of("缺少参数【MsgInfo.imMsg】", ErrorCode.REQUIRE_ARGUMENT);
+                    throw JafI18NException.of("缺少参数【MsgInfo.imMsg】", ErrorCode.REQUIRE_ARGUMENT);
                 }
                 if (MsgType.IM_MULTI_LANG == type && null == imMsg.getAddition()) {
-                    throw WafI18NException.of("缺少参数【MsgInfo.imMsg.addition】", ErrorCode.REQUIRE_ARGUMENT);
+                    throw JafI18NException.of("缺少参数【MsgInfo.imMsg.addition】", ErrorCode.REQUIRE_ARGUMENT);
                 }
             }
         }

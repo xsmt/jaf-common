@@ -1,5 +1,6 @@
 package cn.jcloud.jaf.common.exception;
 
+import cn.jcloud.gaea.WafException;
 import cn.jcloud.jaf.common.constant.IErrorCode;
 import cn.jcloud.jaf.common.util.I18NUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +13,7 @@ import java.util.Objects;
  * Waf国际化异常
  * Create By Wei Han
  */
-public class JafI18NException extends JafException {
+public class JafI18NException extends WafException {
 
     private String code;
     private String message;

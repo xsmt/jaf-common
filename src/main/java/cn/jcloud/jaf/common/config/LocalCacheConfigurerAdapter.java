@@ -1,8 +1,8 @@
 package cn.jcloud.jaf.common.config;
 
-import com.google.common.cache.CacheBuilder;
 import cn.jcloud.jaf.common.cache.core.LocalCacheSupportCondition;
 import cn.jcloud.jaf.common.exception.JafI18NException;
+import com.google.common.cache.CacheBuilder;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.annotation.Conditional;

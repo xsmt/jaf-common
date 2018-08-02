@@ -1,8 +1,8 @@
 package cn.jcloud.jaf.common.tenant.domain;
 
 
-import com.nd.social.common.base.domain.BizDomain;
-import com.nd.social.common.constant.IDG;
+import cn.jcloud.jaf.common.base.domain.BizDomain;
+import cn.jcloud.jaf.common.constant.IDG;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.TypeAlias;
@@ -11,12 +11,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 /**
- * Created by closer on 2016/1/27.
+ * Created by Wei Han on 2016/1/27.
  */
 @Entity
 @Table(name = "t_tenant")
@@ -98,13 +97,6 @@ public class Tenant extends BizDomain<Long> {
     private Date lastAccessTime;
 
     private boolean guestMode;
-    
-    /**
-     * 模板id
-     */
-	@Pattern(regexp = "^[a-zA-Z0-9-_]{0,36}$", message = "template_id max length 36 and must be made up of [a-zA-Z0-9-_]")
-    @Transient
-    private String templateId;
 
     public String getOrgId() {
         return this.orgId;
@@ -209,12 +201,4 @@ public class Tenant extends BizDomain<Long> {
     public void setGuestMode(boolean guestMode) {
         this.guestMode = guestMode;
     }
-
-	public String getTemplateId() {
-		return templateId;
-	}
-
-	public void setTemplateId(String templateId) {
-		this.templateId = templateId;
-	}
 }

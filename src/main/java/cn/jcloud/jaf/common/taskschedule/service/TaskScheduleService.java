@@ -1,6 +1,6 @@
 package cn.jcloud.jaf.common.taskschedule.service;
 
-import com.nd.social.common.taskschedule.domain.MsgInfo;
+import cn.jcloud.jaf.common.taskschedule.domain.MsgInfo;
 
 import java.util.Collection;
 

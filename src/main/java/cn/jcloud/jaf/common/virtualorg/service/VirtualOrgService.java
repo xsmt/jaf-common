@@ -1,13 +1,13 @@
 package cn.jcloud.jaf.common.virtualorg.service;
 
+import cn.jcloud.gaea.WafProperties;
+import cn.jcloud.gaea.client.http.WafSecurityHttpClient;
+import cn.jcloud.gaea.rest.config.WafConstants;
+import cn.jcloud.gaea.rest.security.services.impl.CacheUtil;
+import cn.jcloud.jaf.common.virtualorg.domain.VOrgNode;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.nd.gaea.WafProperties;
-import com.nd.gaea.client.http.WafSecurityHttpClient;
-import com.nd.gaea.rest.security.services.impl.CacheUtil;
-import com.nd.gaea.rest.support.SConfKeys;
-import com.nd.social.common.virtualorg.domain.VOrgNode;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +37,9 @@ public class VirtualOrgService {
 
     @PostConstruct
     public void postConstruct() {
-        String uri = WafProperties.getProperty(SConfKeys.WAF_UC_VORG);
+        String uri = WafProperties.getProperty(WafConstants.WAF_UC_VORG);
         if (StringUtils.isBlank(uri)) {
-            LOGGER.warn("【waf.properties】缺少配置项【{}】，会导致虚拟组织相关功能无法使用，建议进行配置", SConfKeys.WAF_UC_VORG);
+            LOGGER.warn("【waf.properties】缺少配置项【{}】，会导致虚拟组织相关功能无法使用，建议进行配置", WafConstants.WAF_UC_VORG);
             return;
         }
         if (!uri.endsWith("/")) {

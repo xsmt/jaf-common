@@ -1,18 +1,18 @@
 package cn.jcloud.jaf.common.whitelist.service;
 
-import com.nd.social.common.base.domain.Module;
-import com.nd.social.common.base.service.BaseTenantService;
-import com.nd.social.common.constant.CommonModules;
-import com.nd.social.common.constant.ErrorCode;
-import com.nd.social.common.exception.WafI18NException;
-import com.nd.social.common.handler.TenantHandler;
-import com.nd.social.common.query.Items;
-import com.nd.social.common.security.GuestHandler;
-import com.nd.social.common.tenant.service.TenantService;
-import com.nd.social.common.tenant.service.TenantSupport;
-import com.nd.social.common.util.IdUtils;
-import com.nd.social.common.util.ValidatorUtil;
-import com.nd.social.common.whitelist.domain.GuestWhiteList;
+import cn.jcloud.jaf.common.base.domain.Module;
+import cn.jcloud.jaf.common.base.service.BaseTenantService;
+import cn.jcloud.jaf.common.constant.CommonModules;
+import cn.jcloud.jaf.common.constant.ErrorCode;
+import cn.jcloud.jaf.common.exception.JafI18NException;
+import cn.jcloud.jaf.common.handler.TenantHandler;
+import cn.jcloud.jaf.common.query.Items;
+import cn.jcloud.jaf.common.security.GuestHandler;
+import cn.jcloud.jaf.common.tenant.service.TenantService;
+import cn.jcloud.jaf.common.tenant.service.TenantSupport;
+import cn.jcloud.jaf.common.util.IdUtils;
+import cn.jcloud.jaf.common.util.ValidatorUtil;
+import cn.jcloud.jaf.common.whitelist.domain.GuestWhiteList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -38,17 +38,17 @@ public class GuestWhiteListService extends BaseTenantService<GuestWhiteList, Lon
     }
 
     @Override
-    public Class<?>[] getEntities() {
+    public Class[] getEntities() {
         return new Class[]{GuestWhiteList.class};
     }
 
-    public void updateGuestMode(long tenantId, boolean guestMode) {
-        tenantService.updateGuestMode(tenantId, guestMode);
-        VisitorService.cleanCustomizableWhiteApiCache(tenantId);
+    public void updateGuestMode(long orgId, boolean guestMode) {
+        tenantService.updateGuestMode(orgId, guestMode);
+        VisitorService.cleanWhiteListCache(orgId);
     }
 
-    public boolean getGuestMode(long tenantId) {
-        return tenantService.findStrictOne(tenantId).isGuestMode();
+    public boolean getGuestMode(long orgId) {
+        return tenantService.findStrictOne(orgId).isGuestMode();
     }
 
     public Items<GuestWhiteList> getOptionalGuestWhiteLists() {
@@ -64,19 +64,14 @@ public class GuestWhiteListService extends BaseTenantService<GuestWhiteList, Lon
 
     public List<GuestWhiteList> batchAdd(List<String> accesses) {
         if (CollectionUtils.isEmpty(accesses)) {
-            throw WafI18NException.of("白名单列表为空", ErrorCode.INVALID_ARGUMENT);
+            throw JafI18NException.of("白名单列表为空", ErrorCode.INVALID_ARGUMENT);
         }
 
-        List<String> existedAccesses = existedAccesses();
         Map<String, String> optionalWhiteMap = GuestHandler.getOptionalWhiteMap();
         List<GuestWhiteList> result = new ArrayList<>(accesses.size());
         for (String access : accesses) {
             if (!optionalWhiteMap.containsKey(access)) {
-                throw WafI18NException.of("accesses参数存在无效的值", ErrorCode.INVALID_ARGUMENT);
-            }
-            
-            if(existedAccesses.contains(access)){
-            	continue;
+                throw JafI18NException.of("access参数存在无效的值", ErrorCode.INVALID_ARGUMENT);
             }
 
             GuestWhiteList guestWhiteList = new GuestWhiteList();
@@ -89,7 +84,7 @@ public class GuestWhiteListService extends BaseTenantService<GuestWhiteList, Lon
 
             result.add(guestWhiteList);
         }
-        VisitorService.cleanCustomizableWhiteApiCache(TenantHandler.getStrictTenant());
+        VisitorService.cleanWhiteListCache(TenantHandler.getStrictTenant());
         return result;
     }
 
@@ -104,26 +99,22 @@ public class GuestWhiteListService extends BaseTenantService<GuestWhiteList, Lon
         for (Long id : ids) {
             delete(id);
         }
-        VisitorService.cleanCustomizableWhiteApiCache(TenantHandler.getStrictTenant());
+        VisitorService.cleanWhiteListCache(TenantHandler.getStrictTenant());
         return result;
     }
 
     public List<String> findAllAccess() {
-        long tenantId = TenantHandler.getStrictTenant();
-        if (tenantService.isOpenGuestMode(tenantId)) {
-            return existedAccesses();
+        long orgId = TenantHandler.getStrictTenant();
+        if (tenantService.isOpenGuestMode(orgId)) {
+            List<GuestWhiteList> guestWhiteLists = findAll();
+            List<String> accesses = new ArrayList<>(guestWhiteLists.size());
+            for (GuestWhiteList guestWhiteList : guestWhiteLists) {
+                accesses.add(guestWhiteList.getAccess());
+            }
+            return accesses;
         } else {
             return Collections.emptyList();
         }
     }
 
-    public List<String> existedAccesses(){
-    	
-    	List<GuestWhiteList> guestWhiteLists = findAll();
-        List<String> accesses = new ArrayList<>(guestWhiteLists.size());
-        for (GuestWhiteList guestWhiteList : guestWhiteLists) {
-            accesses.add(guestWhiteList.getAccess());
-        }
-        return accesses;
-    }
 }
