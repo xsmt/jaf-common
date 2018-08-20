@@ -25,7 +25,7 @@ public class SecretAdapter implements SecurityAdapter {
             if (!SecretHandler.isSecretMethod(requestMethod)) {
                 return false;
             }
-            String secret = "nd" + DateFormatUtils.format(new Date(), "yyyyMMdd") + JafContext.getProjectName();
+            String secret = "jc" + DateFormatUtils.format(new Date(), "yyyyMMdd") + JafContext.getProjectName();
             if (StringUtils.equals(secret, request.getParameter("secret"))) {
                 return true;
             }

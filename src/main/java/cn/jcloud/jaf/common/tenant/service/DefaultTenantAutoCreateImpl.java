@@ -13,7 +13,7 @@ public class DefaultTenantAutoCreateImpl implements TenantAutoCreatable {
         tenant.setOrgId(orgId);
         tenant.setName(orgId);
         tenant.setAppName(orgId);
-        tenant.setRealm(orgId + ".sdp.nd");
+        tenant.setRealm(orgId + ".j-cloud.cn");
         return tenant;
     }
 }

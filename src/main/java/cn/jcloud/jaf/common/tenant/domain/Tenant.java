@@ -49,7 +49,7 @@ public class Tenant extends BizDomain<Long> {
      * 领域
      */
     @NotBlank(message = "领域不能为空")
-    @Pattern(regexp = "^.+\\.sdp\\.nd$", message = "正确格式:[org_id].sdp.nd")
+    @Pattern(regexp = "^.+\\.j-cloud\\.cn$", message = "正确格式:[org_id].j-cloud.cn")
     @Column(length = 64)
     private String realm;
 

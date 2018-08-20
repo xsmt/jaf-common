@@ -1,6 +1,8 @@
 package cn.jcloud.jaf.common.base.domain;
 
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -30,6 +32,12 @@ public abstract class BizTenantDomain<I extends Serializable> extends BaseTenant
     @Column(updatable = false)
     private Date createTime;
 
+    @CreatedBy
+    private Long createBy;
+
+    @LastModifiedBy
+    private Long updateBy;
+
     private boolean deleted;
 
     public Date getUpdateTime() {
@@ -54,5 +62,21 @@ public abstract class BizTenantDomain<I extends Serializable> extends BaseTenant
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public Long getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(Long createBy) {
+        this.createBy = createBy;
+    }
+
+    public Long getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(Long updateBy) {
+        this.updateBy = updateBy;
     }
 }
