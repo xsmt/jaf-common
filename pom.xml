@@ -230,12 +230,12 @@
         <repository>
             <id>java-releases</id>
             <name>j-cloud releases nexus mirror.</name>
-            <url>http://10.1.0.29:8081/repository/maven-releases/</url>
+            <url>http://117.50.29.14:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>java-snapshots</id>
             <name>j-cloud snapshots nexus mirror.</name>
-            <url>http://10.1.0.29:8081/repository/maven-snapshots/</url>
+            <url>http://117.50.29.14:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
