@@ -27,7 +27,7 @@ public class Tenant extends BizDomain<Long> {
     /**
      * 租户id,组织号
      */
-    @Column(length = 12)
+    @Column(length = 20)
     @NotBlank(message = "租户id不能为空")
     private String orgId;
 

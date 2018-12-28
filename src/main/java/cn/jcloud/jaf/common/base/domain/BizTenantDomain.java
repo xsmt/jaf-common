@@ -20,11 +20,6 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BizTenantDomain<I extends Serializable> extends BaseTenantDomain<I> {
 
-    /**
-     * 捐赠时间字段名
-     */
-    public static final String CREATE_TIME = "createTime";
-
     @LastModifiedDate
     private Date updateTime;
 
