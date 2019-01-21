@@ -34,6 +34,9 @@ public class JafContext {
     public static final String PROFILE_ASPECT_SERVICE_ARG_PRINT = "profile.aspect.service.arg.print";
     public static final String PROFILE_ASPECT_DAO_ARG_PRINT = "profile.aspect.dao_arg.print";
 
+    private static final String MENU_PATH = "menu.path";
+    private static final String MENU_TYPE = "menu.type";
+    private static final String MENU_EXT = "menu.ext";
     private static Properties properties;
 
     private static boolean taskScheduleSupport;
@@ -106,6 +109,25 @@ public class JafContext {
      */
     public static boolean isTaskScheduleSupport() {
         return taskScheduleSupport;
+    }
+
+    /**
+     * 是否启用菜单项解析
+     */
+    public static boolean isMenuSupport() {
+        return properties.containsKey(MENU_PATH) && StringUtils.isNotEmpty(properties.getProperty(MENU_PATH));
+    }
+
+    public static String getMenuPath() {
+        return properties.getProperty(MENU_PATH);
+    }
+
+    public static String getMenuType() {
+        return properties.getProperty(MENU_TYPE, ".xml");
+    }
+
+    public static String getMenuExt() {
+        return properties.getProperty(MENU_EXT, ".html");
     }
 
     public static String getTsUri() {
