@@ -153,20 +153,22 @@ public class TenantService extends BizService<Tenant, Long> {
         } else {
             Organization organization = organizationService.query(vOrgName);
             activeOrgId = organization.getOrgId();
-            wafUserDetailsService.getVorgUserInfo(userInfo.getUserId(), realmService.getRealm(null), activeOrgId);
+            //TODO 完善虚拟租户严重
+//            wafUserDetailsService.getVorgUserInfo(userInfo.getUserId(), realmService.getRealm(null), activeOrgId);
             VOrgHandler.setVOrgId(activeOrgId);
             VOrgHandler.setVOrgName(vOrgName);
+            //TODO 完善虚拟租户严重
             //如果指定的虚拟组织没开通服务
-            if (!exists(activeOrgId) && null == tenantAutoCreatable) {
-                //如果没有指定orgId，则通过用户上下文获取
-                if (StringUtils.isEmpty(orgId)) {
-                    activeOrgId = getUserOrgId(userInfo);
-                } else {
-                    //校验指定的orgId（Parameter中的orgId）是否在虚拟组织内
-                    virtualOrgService.getVoNodeInfo(activeOrgId, orgId);
-                    activeOrgId = orgId;
-                }
-            }
+//            if (!exists(activeOrgId) && null == tenantAutoCreatable) {
+//                //如果没有指定orgId，则通过用户上下文获取
+//                if (StringUtils.isEmpty(orgId)) {
+//                    activeOrgId = getUserOrgId(userInfo);
+//                } else {
+//                    //校验指定的orgId（Parameter中的orgId）是否在虚拟组织内
+//                    virtualOrgService.getVoNodeInfo(activeOrgId, orgId);
+//                    activeOrgId = orgId;
+//                }
+//            }
         }
         setTenantByOrgId(activeOrgId);
     }

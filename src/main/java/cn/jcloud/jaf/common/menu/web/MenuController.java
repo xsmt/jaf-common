@@ -3,6 +3,7 @@ package cn.jcloud.jaf.common.menu.web;
 import cn.jcloud.jaf.common.menu.core.MenuSupportCondition;
 import cn.jcloud.jaf.common.menu.domain.Menu;
 import cn.jcloud.jaf.common.menu.service.MenuService;
+import cn.jcloud.jaf.common.security.GuestApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
+    @GuestApi
     @RequestMapping(value = "{code}", method = RequestMethod.GET)
     public Menu getMenu(@PathVariable("code") String code, @RequestParam(value = "version", required = false) Long version) {
         return menuService.getMenu(code, version);
