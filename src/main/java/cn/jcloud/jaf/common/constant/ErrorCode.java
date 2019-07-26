@@ -31,6 +31,10 @@ public enum ErrorCode implements IErrorCode {
     // 没有数据
     DATA_NOT_FOUND(HttpStatus.NOT_FOUND, "DATA_NOT_FOUND", "error.code.data.not.found"),
 
+    // 内容服务相关
+    CS_SESSION_NG(HttpStatus.BAD_REQUEST, "CS_SESSION_NG", "error.code.cs.session.ng"),
+    CS_DISABLE(HttpStatus.NOT_FOUND, "CS_DISABLE", "error.code.cs.disable"),
+
     //配置相关
     CONFIG_LOADING_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "CONFIG_LOADING_FAIL", "error.code.config.loading.fail"),
     CONFIG_MISSING(HttpStatus.INTERNAL_SERVER_ERROR, "CONFIG_MISSING", "error.code.config.missing"),

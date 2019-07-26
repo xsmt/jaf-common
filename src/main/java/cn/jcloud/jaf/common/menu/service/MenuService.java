@@ -42,6 +42,7 @@ public class MenuService {
     public static final String JAF_UC_USER_ALL_PRIVILEGE = "waf.uc.user.privilege";
     public static final String JAF_UC_USER_ALL_PRIVILEGE_VALUE = "roles/{system_code}/user/{user_id}/privilege?suid={user_id}";
     public static final String JAF_UC_USER_ALL_PRIVILEGE_URL;
+    public static final String DEFAULT_MENU_NAME = "default";
 
     static {
         JAF_UC_USER_ALL_PRIVILEGE_URL = UrlUtil.combine(WafProperties.getProperty(WAF_UC_VORG),
@@ -81,8 +82,12 @@ public class MenuService {
                     public Menu load(String key) throws Exception {
                         Resource menuResource = new ClassPathResource(JafContext.getMenuPath() + File.separator + key + JafContext.getMenuType());
                         if (!menuResource.exists()) {
+                            menuResource = new ClassPathResource(JafContext.getMenuPath() + File.separator + DEFAULT_MENU_NAME + JafContext.getMenuType());
+                        }
+                        if (!menuResource.exists()) {
                             throw JafI18NException.of(ErrorCode.DATA_NOT_FOUND);
                         }
+
                         return parser.parse(menuResource.getInputStream());
                     }
                 });

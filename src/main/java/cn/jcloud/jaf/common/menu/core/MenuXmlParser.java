@@ -1,21 +1,19 @@
 package cn.jcloud.jaf.common.menu.core;
 
-import java.io.InputStream;
-import java.util.List;
-
 import cn.jcloud.jaf.common.config.JafContext;
 import cn.jcloud.jaf.common.menu.domain.Menu;
 import cn.jcloud.jaf.common.menu.domain.MenuItem;
 import cn.jcloud.jaf.common.menu.domain.MenuOperation;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
+
+import java.io.InputStream;
+import java.util.List;
 
 
 /**

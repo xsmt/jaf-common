@@ -45,7 +45,7 @@ public class JafContext {
     private static boolean redisSupport;
 
     static {
-        taskScheduleSupport = existsPropertiesFile("redis.taskschedule.properties");
+        taskScheduleSupport = existsPropertiesFile(REDIS_TASK_SCHEDULE_PROPERTIES);
         redisSupport = existsPropertiesFile("redis.properties");
         try {
             properties = PropertiesLoaderUtils.loadProperties(new ClassPathResource(JAF_PROPERTIES_FILE_NAME));
