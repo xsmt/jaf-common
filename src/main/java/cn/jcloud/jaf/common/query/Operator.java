@@ -14,7 +14,8 @@ public enum Operator {
     LT("<"),
     LE("<="),
     IN("IN"),
-    LIKE("LIKE");
+    LIKE("LIKE"),
+    UNLIKE("UNLIKE");
 
     private static final Set<String> SET = new HashSet<>();
 

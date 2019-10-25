@@ -90,6 +90,7 @@ public class AppInterceptor implements HandlerInterceptor {
         }
 
         if (bearerAdapter.isPermit(request, response, handler)) {
+            tenantService.setGuestTenant(vOrgName, orgName);
             return true;
         }
 

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.jcloud.jaf</groupId>
     <artifactId>jaf-common</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>jaf-common</name>
 
@@ -229,12 +229,12 @@
         <repository>
             <id>java-releases</id>
             <name>j-cloud releases nexus mirror.</name>
-            <url>http://117.50.29.14:8081/repository/maven-releases/</url>
+            <url>http://47.103.102.165:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>java-snapshots</id>
             <name>j-cloud snapshots nexus mirror.</name>
-            <url>http://117.50.29.14:8081/repository/maven-snapshots/</url>
+            <url>http://47.103.102.165:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
