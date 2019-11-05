@@ -1,7 +1,6 @@
 package cn.jcloud.jaf.common.im.core;
 
 import cn.jcloud.jaf.common.im.domain.MessageTemplate;
-import cn.jcloud.jaf.common.menu.domain.Menu;
 
 import java.io.InputStream;
 import java.util.List;

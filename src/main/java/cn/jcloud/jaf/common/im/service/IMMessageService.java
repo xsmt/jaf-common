@@ -13,7 +13,6 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -97,28 +96,28 @@ public class IMMessageService {
         return sendMessage(action, target, null, null, null, null, param, receivers, Collections.EMPTY_LIST);
     }
 
-    public Long sendTaskMessageToOrg(String action, Date sendTime, String checkUrl, Long receiveOrgId) {
-        return sendTaskMessageToOrg(action, null, sendTime, checkUrl, Collections.EMPTY_MAP, receiveOrgId);
+    public Long sendTaskMessageToOrg(String action, Date sendTime, String checkUrl, String callBackUrl, Long receiveOrgId) {
+        return sendTaskMessageToOrg(action, null, sendTime, checkUrl, callBackUrl, Collections.EMPTY_MAP, receiveOrgId);
     }
 
-    public Long sendTaskMessageToOrg(String action, String target, Date sendTime, String checkUrl, Map<String, Object> param, Long receiveOrgId) {
-        return sendTaskMessageToOrg(action, target, sendTime, checkUrl, param, ImmutableList.of(receiveOrgId));
+    public Long sendTaskMessageToOrg(String action, String target, Date sendTime, String checkUrl, String callBackUrl, Map<String, Object> param, Long receiveOrgId) {
+        return sendTaskMessageToOrg(action, target, sendTime, checkUrl, callBackUrl, param, ImmutableList.of(receiveOrgId));
     }
 
-    public Long sendTaskMessageToOrg(String action, String target, Date sendTime, String checkUrl, Map<String, Object> param, List<Long> receiveOrgIds) {
-        return sendMessage(action, target, null, checkUrl, sendTime, null, param, null, receiveOrgIds);
+    public Long sendTaskMessageToOrg(String action, String target, Date sendTime, String checkUrl, String callBackUrl, Map<String, Object> param, List<Long> receiveOrgIds) {
+        return sendMessage(action, target, null, checkUrl, sendTime, callBackUrl, param, null, receiveOrgIds);
     }
 
-    public Long sendTaskMessageToUser(String action, Date sendTime, String checkUrl, Long receiver) {
-        return sendTaskMessageToUser(action, null, sendTime, checkUrl, Collections.EMPTY_MAP, receiver);
+    public Long sendTaskMessageToUser(String action, Date sendTime, String checkUrl, String callBackUrl, Long receiver) {
+        return sendTaskMessageToUser(action, null, sendTime, checkUrl, callBackUrl, Collections.EMPTY_MAP, receiver);
     }
 
-    public Long sendTaskMessageToUser(String action, String target, Date sendTime, String checkUrl, Map<String, Object> param, Long receiver) {
-        return sendTaskMessageToUser(action, target, sendTime, checkUrl, param, Collections.singletonList(receiver));
+    public Long sendTaskMessageToUser(String action, String target, Date sendTime, String checkUrl, String callBackUrl, Map<String, Object> param, Long receiver) {
+        return sendTaskMessageToUser(action, target, sendTime, checkUrl, callBackUrl, param, Collections.singletonList(receiver));
     }
 
-    public Long sendTaskMessageToUser(String action, String target, Date sendTime, String checkUrl, Map<String, Object> param, List<Long> receivers) {
-        return sendMessage(action, target, null, checkUrl, sendTime, null, param, receivers, Collections.EMPTY_LIST);
+    public Long sendTaskMessageToUser(String action, String target, Date sendTime, String checkUrl, String callBackUrl, Map<String, Object> param, List<Long> receivers) {
+        return sendMessage(action, target, null, checkUrl, sendTime, callBackUrl, param, receivers, Collections.EMPTY_LIST);
     }
     public Long sendMessage(String action, String target, String hrefUrl, String checkUrl, Date sendTime, String callBackUrl, Map<String, Object> param, List<Long> receivers, List<Long> receiveOrgIds) {
         Message message = Message.create()

@@ -1,6 +1,8 @@
 package cn.jcloud.jaf.common.menu.domain;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class MenuItem implements Comparable<MenuItem>{
     private String id;

@@ -3,7 +3,6 @@ package cn.jcloud.jaf.common.tenant.service;
 import cn.jcloud.gaea.WafProperties;
 import cn.jcloud.gaea.client.http.WafSecurityHttpClient;
 import cn.jcloud.gaea.client.support.WafClientContextHolder;
-import cn.jcloud.gaea.rest.config.WafConstants;
 import cn.jcloud.gaea.rest.support.WafContext;
 import cn.jcloud.gaea.util.UrlUtil;
 import cn.jcloud.jaf.common.tenant.domain.Tenant;

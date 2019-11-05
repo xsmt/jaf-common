@@ -3,7 +3,8 @@ package cn.jcloud.jaf.common.im.domain;
 import cn.jcloud.jaf.common.config.JafContext;
 import org.springframework.util.Assert;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MessageTemplate {
     private String systemCode;

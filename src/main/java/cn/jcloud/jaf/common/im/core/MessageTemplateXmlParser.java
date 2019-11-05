@@ -3,8 +3,6 @@ package cn.jcloud.jaf.common.im.core;
 import cn.jcloud.jaf.common.im.domain.MessageTemplate;
 import cn.jcloud.jaf.common.im.domain.MessageTemplateParam;
 import cn.jcloud.jaf.common.im.enums.MessageTemplateParamTypeEnum;
-import cn.jcloud.jaf.common.menu.domain.MenuItem;
-import cn.jcloud.jaf.common.menu.domain.MenuOperation;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
