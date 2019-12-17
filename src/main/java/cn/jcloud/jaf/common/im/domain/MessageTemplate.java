@@ -1,6 +1,7 @@
 package cn.jcloud.jaf.common.im.domain;
 
 import cn.jcloud.jaf.common.config.JafContext;
+import cn.jcloud.jaf.common.im.enums.MessageTypeEnum;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class MessageTemplate {
     private String systemCode;
     private String product;
     private String action;
+    private MessageTypeEnum messageType;
     private String title;
     private String content;
     private String authCode;
@@ -28,12 +30,13 @@ public class MessageTemplate {
     public static class Builder {
         private String systemCode;
         private String action;
+        private MessageTypeEnum messageType;
         private String title;
         private String content;
         private String authCode;
         private String hrefUrl;
         private String hrefTitle;
-        private Boolean subscribeAble;
+        private Boolean subscribeAble = false;
         private List<MessageTemplateParam> params;
 
         private Builder(){
@@ -45,6 +48,10 @@ public class MessageTemplate {
         }
         public Builder action(String action) {
             this.action = action;
+            return this;
+        }
+        public Builder messageType(String messageTypeName) {
+            this.messageType = MessageTypeEnum.valueOf(messageTypeName);
             return this;
         }
         public Builder title(String title) {
@@ -89,6 +96,7 @@ public class MessageTemplate {
             messageTemplate.systemCode = this.systemCode;
             messageTemplate.product = JafContext.getProjectName();
             messageTemplate.action = this.action;
+            messageTemplate.messageType = this.messageType == null ? MessageTypeEnum.MESSAGE : this.messageType;
             messageTemplate.title = this.title;
             messageTemplate.content = this.content;
             messageTemplate.authCode = this.authCode;
@@ -118,6 +126,10 @@ public class MessageTemplate {
 
     public String getAction() {
         return action;
+    }
+
+    public MessageTypeEnum getMessageType() {
+        return messageType;
     }
 
     public String getTitle() {

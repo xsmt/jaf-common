@@ -50,12 +50,13 @@ public class MessageTemplateXmlParser implements MessageTemplateParser {
         return MessageTemplate.create()
                 .systemCode(templateElement.attributeValue("system"))
                 .action(templateElement.attributeValue("action"))
+                .messageType(templateElement.attributeValue("type", "MESSAGE"))
                 .title(templateElement.attributeValue("title"))
                 .content(templateElement.elementText("content"))
                 .authCode(templateElement.attributeValue("auth"))
                 .hrefUrl(templateElement.elementText("href"))
                 .hrefTitle(templateElement.elementText("href_title"))
-                .subscribeAble(Boolean.parseBoolean(StringUtils.defaultString(templateElement.attributeValue("subscribe", "false"))))
+                .subscribeAble(Boolean.parseBoolean(templateElement.attributeValue("subscribe", "false")))
                 .params(parseParam(templateElement))
                 .build();
     }
