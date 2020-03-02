@@ -102,6 +102,7 @@ public class AppInterceptor implements HandlerInterceptor {
             throw JafI18NException.of(ErrorCode.USER_NOT_LOGIN);
         }
         UserHandler.setUser(userInfo.getUserId());
+        UserHandler.setProcurement(userInfo.getOrgExinfo());
 
         String pOrgId = request.getParameter("orgId");
         tenantService.setUserTenant(vOrgName, pOrgId, userInfo);

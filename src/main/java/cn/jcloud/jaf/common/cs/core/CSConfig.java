@@ -26,8 +26,23 @@ public class CSConfig {
     @Value("${cs.sequence.init_url:/v0.1/sequences}")
     private String sequenceInitUrl;
 
-    @Value("${im.sequence.next_url:/v0.1/sequences/{code}}")
+    @Value("${cs.sequence.next_url:/v0.1/sequences/{code}}")
     private String sequenceNextUrl;
+
+    @Value("${cs.file.info_url:/v0.1/files/{id}}")
+    private String fileInfoUrl;
+
+    @Value("${cs.file.download_code_url:/v0.1/files/down/code/{id}?module={module}}")
+    private String fileDownloadCodeUrl;
+
+    @Value("${cs.file.download_url:/v0.1/files/down/{code}}")
+    private String fileDownloadUrl;
+
+    @Value("${cs.file.upload_byte_url:/v0.1/files/upload/byte/{md5}}")
+    private String uploadByteUrl;
+
+    @Value("${cs.file.merge_byte_url:/v0.1/files/merge/byte/{md5}}")
+    private String mergeByteFileUrl;
 
     public String getHost() {
         return host;
@@ -69,6 +84,46 @@ public class CSConfig {
         this.sequenceNextUrl = sequenceNextUrl;
     }
 
+    public String getFileInfoUrl() {
+        return fileInfoUrl;
+    }
+
+    public void setFileInfoUrl(String fileInfoUrl) {
+        this.fileInfoUrl = fileInfoUrl;
+    }
+
+    public String getFileDownloadCodeUrl() {
+        return fileDownloadCodeUrl;
+    }
+
+    public void setFileDownloadCodeUrl(String fileDownloadCodeUrl) {
+        this.fileDownloadCodeUrl = fileDownloadCodeUrl;
+    }
+
+    public String getFileDownloadUrl() {
+        return fileDownloadUrl;
+    }
+
+    public void setFileDownloadUrl(String fileDownloadUrl) {
+        this.fileDownloadUrl = fileDownloadUrl;
+    }
+
+    public String getUploadByteUrl() {
+        return uploadByteUrl;
+    }
+
+    public void setUploadByteUrl(String uploadByteUrl) {
+        this.uploadByteUrl = uploadByteUrl;
+    }
+
+    public String getMergeByteFileUrl() {
+        return mergeByteFileUrl;
+    }
+
+    public void setMergeByteFileUrl(String mergeByteFileUrl) {
+        this.mergeByteFileUrl = mergeByteFileUrl;
+    }
+
     public String formatEnumCreateUrl() {
         if (StringUtils.isEmpty(this.host) || StringUtils.isEmpty(this.enumUrl)) {
             return null;
@@ -91,6 +146,46 @@ public class CSConfig {
         }
 
         return UrlUtil.combine(this.host, this.sequenceNextUrl);
+    }
+
+    public String formatFileInfoUrl() {
+        if (StringUtils.isEmpty(this.host) || StringUtils.isEmpty(this.fileInfoUrl)) {
+            return null;
+        }
+
+        return UrlUtil.combine(this.host, this.fileInfoUrl);
+    }
+
+    public String formatFileDownloadCodeUrl() {
+        if (StringUtils.isEmpty(this.host) || StringUtils.isEmpty(this.fileDownloadCodeUrl)) {
+            return null;
+        }
+
+        return UrlUtil.combine(this.host, this.fileDownloadCodeUrl);
+    }
+
+    public String formatFileDownloadUrl() {
+        if (StringUtils.isEmpty(this.host) || StringUtils.isEmpty(this.fileDownloadUrl)) {
+            return null;
+        }
+
+        return UrlUtil.combine(this.host, this.fileDownloadUrl);
+    }
+
+    public String formatUploadByteUrl() {
+        if (StringUtils.isEmpty(this.host) || StringUtils.isEmpty(this.uploadByteUrl)) {
+            return null;
+        }
+
+        return UrlUtil.combine(this.host, this.uploadByteUrl);
+    }
+
+    public String formatMergeByteFileUrl() {
+        if (StringUtils.isEmpty(this.host) || StringUtils.isEmpty(this.mergeByteFileUrl)) {
+            return null;
+        }
+
+        return UrlUtil.combine(this.host, this.mergeByteFileUrl);
     }
 
     @Bean
