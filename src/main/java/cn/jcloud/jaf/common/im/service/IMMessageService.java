@@ -19,6 +19,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -146,5 +147,15 @@ public class IMMessageService {
 
     public void cancelTaskMessage(Long messageId) {
         httpClient.deleteForObject(imConfig.formatCalcelkMessageUrl(), Map.class, messageId);
+    }
+
+    @Async
+    public void readMessage(String action, String targetId) {
+        if (!TEMPLATE_CACHE.containsKey(action)) {
+            throw JafI18NException.of("消息模板\"{0}\"未定义", action);
+        }
+
+        MessageTemplate messageTemplate = TEMPLATE_CACHE.get(action);
+        httpClient.putForObject(imConfig.formatReadMessageUrl(), messageTemplate, Map.class, messageTemplate.getSystemCode(), targetId.toString());
     }
 }

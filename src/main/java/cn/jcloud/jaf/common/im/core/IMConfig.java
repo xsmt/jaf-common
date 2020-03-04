@@ -32,6 +32,9 @@ public class IMConfig {
     @Value("${im.message.cancel_url:/v0.1/message/task/{message_id}}")
     private String cancelUrl;
 
+    @Value("${im.message.read_url:/v0.1/message/read/target/{system_code}/{target}}")
+    private String readUrl;
+
     public String getPath() {
         return path;
     }
@@ -80,6 +83,14 @@ public class IMConfig {
         this.cancelUrl = cancelUrl;
     }
 
+    public String getReadUrl() {
+        return readUrl;
+    }
+
+    public void setReadUrl(String readUrl) {
+        this.readUrl = readUrl;
+    }
+
     public String formatTargetCreateUrl() {
         if (StringUtils.isEmpty(this.host) || StringUtils.isEmpty(this.targetUrl)) {
             return null;
@@ -110,6 +121,14 @@ public class IMConfig {
         }
 
         return UrlUtil.combine(this.host, this.cancelUrl);
+    }
+
+    public String formatReadMessageUrl() {
+        if (StringUtils.isEmpty(this.host) || StringUtils.isEmpty(this.readUrl)) {
+            return null;
+        }
+
+        return UrlUtil.combine(this.host, this.readUrl);
     }
 
     @Bean
