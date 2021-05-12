@@ -11,7 +11,7 @@
     <spring.version>4.2.4.RELEASE</spring.version>
     <spring.data.jpa.version>1.9.2.RELEASE</spring.data.jpa.version>
     <spring.data.mongo.version>1.9.1.RELEASE</spring.data.mongo.version>
-    <security.version>3.2.3.RELEASE</security.version>
+    <security.version>5.2.10.RELEASE</security.version>
     <hibernate-validator.version>5.3.3.Final</hibernate-validator.version>
     <hibernate.data.version>4.3.6.Final</hibernate.data.version>
     <jackson.version>2.8.1</jackson.version>
