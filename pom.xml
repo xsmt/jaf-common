@@ -8,7 +8,7 @@
     <artifactId>jaf-common</artifactId><properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <servlet-api.version>3.1.0</servlet-api.version>
-    <spring.version>4.2.4.RELEASE</spring.version>
+    <spring.version>5.3.19</spring.version>
     <spring.data.jpa.version>1.9.2.RELEASE</spring.data.jpa.version>
     <spring.data.mongo.version>1.9.1.RELEASE</spring.data.mongo.version>
     <security.version>3.2.3.RELEASE</security.version>
