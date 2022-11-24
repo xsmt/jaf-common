@@ -13,7 +13,7 @@
     <spring.data.mongo.version>1.9.1.RELEASE</spring.data.mongo.version>
     <security.version>3.2.3.RELEASE</security.version>
     <hibernate-validator.version>5.3.3.Final</hibernate-validator.version>
-    <hibernate.data.version>4.3.6.Final</hibernate.data.version>
+    <hibernate.data.version>5.3.20.Final</hibernate.data.version>
     <jackson.version>2.8.1</jackson.version>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
